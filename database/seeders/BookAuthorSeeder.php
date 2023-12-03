@@ -18,14 +18,22 @@ class BookAuthorSeeder extends Seeder
         $authors = User::where('user_type', UserType::Author)->get();
         $books = Book::all();
 
-        foreach ($authors as $author) {
-            $randomBooks = $books->random(rand(1, $books->count()));
+        // Shuffle the books collection to randomize the order
+        $shuffledBooks = $books->shuffle();
 
-            foreach ($randomBooks as $book) {
-                if (!$author->books()->where('book_id', $book->id)->exists()) {
-                    $author->books()->attach($book->id);
-                }
-            }
+        foreach ($authors as $author) {
+            // Determine the number of books to assign (up to the remaining count)
+            $numberOfBooksToAssign = rand(1, $shuffledBooks->count());
+
+            // Take the specified number of books from the shuffled collection
+            $booksToAssign = $shuffledBooks->take($numberOfBooksToAssign);
+
+            // Attach the books to the author
+            $author->books()->attach($booksToAssign->pluck('id'));
+
+            // Remove the assigned books from the shuffled collection
+            $shuffledBooks = $shuffledBooks->slice($numberOfBooksToAssign);
         }
     }
+
 }

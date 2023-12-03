@@ -16,6 +16,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "node-snackbar": "^0.1.16",
         "sass-loader": "^13.3.2"
     }
 }

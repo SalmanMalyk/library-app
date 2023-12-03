@@ -13,10 +13,10 @@ class Book extends Model
     protected $guarded = [];
 
     public function author() : BelongsToMany {
-        return $this->belongsToMany(User::class, 'author_id', 'id');
+        return $this->belongsToMany(User::class, 'book_author', 'author_id', 'book_id');
     }
     
     public function publisher() : BelongsToMany {
-        return $this->belongsToMany(User::class, 'publisher_id', 'id');
+        return $this->belongsToMany(User::class, 'book_publisher', 'publisher_id', 'book_id');
     }
 }

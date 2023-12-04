@@ -10,13 +10,16 @@ class Book extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'title',
+        'description'
+    ];
 
     public function author() : BelongsToMany {
-        return $this->belongsToMany(User::class, 'book_author', 'author_id', 'book_id');
+        return $this->belongsToMany(User::class, 'book_author', 'book_id', 'author_id', 'id', 'id')->withTimestamps();
     }
     
     public function publisher() : BelongsToMany {
-        return $this->belongsToMany(User::class, 'book_publisher', 'publisher_id', 'book_id');
+        return $this->belongsToMany(User::class, 'book_publisher', 'book_id', 'publisher_id', 'id', 'id')->withTimestamps();
     }
 }

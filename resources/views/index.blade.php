@@ -128,7 +128,7 @@
                 tableData += `
                     <tr>
                         <th scope="row">${++i}</th>
-                        <td class="text-decoration-underline text-muted">${item.book_title}</td>
+                        <td class="text-decoration-underline text-muted text-capitalize">${item.book_title}</td>
                         <td>${item.author_name}</td>
                         <td>${item.publisher_name}</td>
                     </tr>
@@ -144,7 +144,8 @@
                 url: '/api/books',
                 method: 'GET',
                 data: {
-                    page: pageNo
+                    page: pageNo,
+                    list_type: 'paginate'
                 },
                 beforeSend: function() {
                     toggleLoading(false);
